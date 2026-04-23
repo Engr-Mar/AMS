@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: ams
+    env: java
+    buildCommand: chmod +x gradlew && ./gradlew build
+    startCommand: java -jar build/libs/*.jar
