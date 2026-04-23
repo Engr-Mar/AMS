@@ -1,0 +1,319 @@
+html{
+    block-size: 100%;
+}
+
+body {
+    block-size: 100%;
+    -webkit-font-smoothing: antialiased;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+label {
+    display: inline-block;
+    min-inline-size: 100px;
+}
+
+.nav-item {
+    padding-inline-start: 1rem;
+}
+
+.search-button, 
+.reset-button {
+    flex: 2;
+    transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.search-button:hover,
+.reset-button:hover{
+    background: #198754 !important;
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)) !important;
+    opacity: 10 !important;
+    color:white !important;  
+    border: 2px white !important;
+    text-decoration: underline 2px white;
+}
+
+main {
+    block-size: calc(100vh - 62px);
+    overflow: hidden; 
+}
+
+.card {
+    block-size: 100%!important;
+}
+
+.side-panel {
+    overflow-y: auto;
+}
+
+.search-label {
+    cursor: pointer;
+    padding: 0.5rem;
+    padding-inline-start: 1rem;
+}
+
+.search-form {
+    margin-inline-start: 1rem;
+    margin-block-end: 1rem;
+}
+
+.result-panel .card{
+    display: flex;
+    flex-direction: column;
+    block-size: calc(100vh - 100px) !important;
+    max-block-size: calc(100vh - 100px) !important;
+}
+
+.search-panel .card{
+    block-size: calc(100vh - 100px) !important;
+    max-block-size: calc(100vh - 100px) !important;
+}
+.result-panel .card-body {
+    flex: 1 1 auto;
+    padding: 0.5rem 0 0 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.form-select .option {
+    color:#198754;
+    padding: 8px 12px;
+    font-size: 16px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+
+.result-panel .table-responsive {
+    block-size: 100%;
+    max-block-size: 100%;
+    overflow: auto;
+}
+.resizer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6px;
+    height: 100%;
+    cursor: col-resize;
+    z-index: 10;
+}
+/* TABLE */
+
+#resultsTable {
+    max-width: 4000px;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+#resultsTable thead th {
+    position: sticky;
+    inset-block-start: 0;
+    background-color: #f8f9fa;
+
+    z-index: 4;
+}
+
+/* STICKY COLUMNS */
+
+#resultsTable th:nth-child(1),
+#resultsTable td:nth-child(1) {
+    position: sticky;
+    left: 0;
+    z-index: 3;
+    background-color: #fff;
+}
+
+#resultsTable th:nth-child(2),
+#resultsTable td:nth-child(2) {
+    position: sticky;
+    left: 40px;
+    z-index: 3;
+    background-color: #fff;
+}
+
+#resultsTable th:nth-child(3),
+#resultsTable td:nth-child(3) {
+    position: sticky;
+    left: 100px;
+    z-index: 3;
+    background-color: white ;
+}
+
+/* HEADER ABOVE STICKY */
+
+#resultsTable thead th:nth-child(1),
+#resultsTable thead th:nth-child(2),
+#resultsTable thead th:nth-child(3) {
+    z-index: 5;
+    background-color: #f8f9fa;
+}
+
+
+/* CELL BEHAVIOR */
+
+#resultsTable td,
+#resultsTable th {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+#resultsTable td{
+    transition: background-color 0.15s ease;
+}
+
+/* CHECKBOX */
+
+.readonly-checkbox {
+    pointer-events: none; 
+    accent-color: #198754;
+    transform: scale(1.1);
+}
+
+/* FILTER TOKENS */
+
+#activeTokens .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35em 0.6em;
+    background: #198754 !important;
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)) !important;
+    opacity: 10 !important;
+    transition: opacity 0.15s ease;
+}
+
+#activeTokens .badge:hover {
+    opacity: 0.8;
+}
+
+/* INPUT HIGHLIGHT */
+
+.input-has-value {
+    border: 2px solid rgb(34, 145, 34) !important;
+    background-color: rgb(186, 233, 186) !important;
+    transition: all 0.2s ease-in-out;
+}
+
+/* BUTTON */
+
+.btn-sm{
+    border-color: rgb(34, 145, 34) !important;
+    color: rgb(34, 145, 34) !important;
+    transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.btn-sm:hover {
+    background-color: rgb(34, 145, 34) !important;
+    color: white !important;
+}
+
+/* PAGINATION */
+
+#pagination .page-item .page-link {
+    background-color: #f0f0f0; 
+    color: #333;               
+    border: 1px solid #ccc; 
+    inline-size: 35px;   
+    text-align: center;
+    transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+#pagination .page-item .page-link:hover {
+    background-color: #1b5e20;
+    color: white;
+}
+
+#pagination .page-item.active .page-link {
+    /* background-color: rgb(34, 145, 34);  */
+    background: #198754 !important;
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)) !important;
+    opacity: 10 !important;
+    color: white;  
+    border-color: rgb(34, 145, 34);
+}
+
+#pagination .page-item.disabled .page-link {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* SPECIAL ROW */
+
+.row-dark-green td {
+    background-color: #198754 !important;
+    color: #fff !important;
+}
+
+.row-dark-green .btn {
+    background-color: #198754 !important;
+    border-color: #198754 !important;
+    color: #fff !important;
+    cursor: not-allowed !important;
+}
+
+.row-dark-green .readonly-checkbox {
+    accent-color: #198754 !important;
+    pointer-events: none; 
+    transform: scale(1.1);
+}
+
+/* COLUMN HIDE */
+
+.col-hidden {
+    display: none;
+}
+
+/* container */
+.column-header-bar{
+    display:flex;
+    align-items:center;
+    background:white;
+    border-bottom: 1px solid #2e7d32 !important;
+}
+
+/* tab buttons */
+.col-toggle-btn{
+    background: white !important;
+    color:#1b5e20 !important;
+    border: 1px solid #2e7d32 !important ;
+    /* text-decoration: underline 2px #1b5e20; */
+    flex: 1;
+    font-size:13px;
+    font-weight:500;
+    padding:6px 12px;
+    cursor:pointer;
+    transition:all 0.18s ease;
+    position:relative;
+}
+.col-toggle-btn-disabled{
+    background: white !important;
+    width: 250px;
+    height: flex;
+    border: none;
+}
+
+/* hover effect */
+.col-toggle-btn:hover,
+.col-toggle-btn.active:hover{
+    background:#1b5e20 !important;
+    color:white !important;
+    text-decoration: underline 1px white;
+    border: 1px solid #2e7d32 !important ;
+}
+/* active tab */
+.col-toggle-btn.active{
+    border:1px solid #2e7d32 !important ;
+    /* background:#2e7d32 !important; */
+    background: #198754 !important;
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)) !important;
+    opacity: 10 !important;
+    color: white !important;
+    text-decoration: none;
+}
+
+
+

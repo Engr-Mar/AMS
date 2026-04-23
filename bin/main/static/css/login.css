@@ -1,0 +1,25 @@
+html{
+    block-size: 100%;
+}
+
+body {
+    block-size: 100%;
+    -webkit-font-smoothing: antialiased;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+label {
+    display: inline-block;
+    min-inline-size: 100px;
+}
+
+.nav-item {
+    padding-inline-start: 1rem;
+}
+
+.search-button, .reset-button {
+    flex: 2;
+}
+
