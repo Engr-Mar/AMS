@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${action == 'update'} ? 'PC更新画面' : 'PC登録画面'">PC Registration - Asset Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" th:href="@{/assets/logo.ico}" type="image/x-icon">
+
+    <link rel="stylesheet" th:href="@{/css/registerstyle.css}" /> 
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.default.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <script th:src="@{/js/registerscript.js}"></script>
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+</head>
+<body class="bg-success bg-gradient bg-opacity-10">
+    <header th:replace="~{header :: header}"></header>
+    <main class="card-body p-0">
+        <!-- <h2 th:text="${action == 'update'} ? 'PC更新画面' : 'PC登録画面'"></h2> -->
+        </br>
+        </br>
+        <input type="hidden" id="action" name="action" th:value="${action}" />
+        <form th:action="@{'/' + ${action} + '/submit'}" th:object="${registrationForm}" method="post">
+
+ 
+            <div class="notebook-wrapper">
+                <div class="notebook-tabs">
+                    <div class="notebook-tab active" data-tab="tab1">PC情報</div>
+                    <div class="notebook-tab" data-tab="tab2">二次情報</div>
+                    <div class="notebook-tab" data-tab="tab3">その他</div>
+                </div>
+                <div class="notebook-content">
+                    <div id="tab1" class="notebook-section active">
+                        <div class="row info-row">
+                            <div class="column left-column">
+                                <input type="hidden" th:field="*{assetId}" />
+                                <label for="computerName">コンピュータ名:</label>
+                                <input type="text" id="computerName" name="computerName" th:field="*{computerName}" placeholder="コンピュータ名を入力"/>
+                                <input type="hidden" id="mess" name="mess" th:value="${message}" />
+
+                                <label for="macAddress">MACアドレス:</label>
+                                <input type="text" id="macAddress" name="macAddress" th:field="*{macAddress}" placeholder="MACアドレスを入力"/>
+
+                                <label for="manufacturer">メーカー:</label>
+                                <select class="ts-wrapper with-arrow" id="manufacturer" name="manufacturer" th:field="*{manufacturerName}" placeholder="メーカーを入力">
+                                    <option value="" disabled selected>-- メーカーを入力 --</option>
+                                    <option th:each="name : ${manufacturers}" th:value="${name.value}" th:text="${name.value}"></option>
+                                </select>
+
+                                <label for="modelNumber">型番:</label>
+                                <select class="ts-wrapper with-arrow" id="modelNumber" name="modelNumber" th:field="*{modelNumber}" placeholder="型番を入力">
+                                    <option value="" disabled selected>-- 型番を入力 --</option>
+                                    <option th:each="name : ${models}" th:value="${name}" th:text="${name}"></option>
+                                </select>
+                            </div>
+
+                            <div class="column right-column">
+                                <label for="os">OS:</label>
+                                <select class="ts-wrapper with-arrow" id="os" name="os" th:field="*{os}" placeholder="OSを入力">
+                                    <option value="" disabled selected>-- OSを入力 --</option>
+                                    <option th:each="name : ${oss}" th:value="${name.key}" th:text="${name.value}"></option>
+                                </select>
+
+                                <label for="office">Office:</label>
+                                <select class="ts-wrapper with-arrow" id="office" name="office" th:field="*{office}" placeholder="Officeの有無/バージョン">
+                                    <option value="" disabled>-- Officeの有無/バージョン --</option>
+                                    <option th:each="name : ${offices}" th:value="${name.key}" th:text="${name.value}"></option>
+                                </select>
+
+                                <label for="securitySoftware">セキュリティソフト:</label>
+                                <select class="ts-wrapper with-arrow" id="securitySoftware" name="securitySoftware" th:field="*{securitySoftware}" placeholder="セキュリティソフトを入力">
+                                    <option value="" disabled selected>-- セキュリティソフトを入力 --</option>
+                                    <option th:each="name : ${secSofts}" th:value="${name.key}" th:text="${name.value}"></option>
+                                </select>
+
+                                <label for="domain">ドメイン:</label>
+                                <select class="ts-wrapper with-arrow" id="domain" name="domain" th:field="*{domain}" placeholder="ドメインを入力">
+                                    <option value="" disabled selected>-- ドメインを入力 --</option>
+                                    <option th:each="name : ${domains}" th:value="${name.value}" th:text="${name.value}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row cpu-row">
+                            <div class="column left-column">
+                                <p>搭載CPU(クロック数):</p><br>
+                                <label for="cpu1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;メーカー:</label>
+                                <select class="ts-wrapper with-arrow" id="cpu1" name="cpu1" th:field="*{cpu1}" placeholder="CPUとクロック数を入力">
+                                    <option value="" disabled selected>-- CPUとクロック数を入力 --</option>
+                                    <option th:each="name : ${cpu1s}" th:value="${name}" th:text="${name}"></option>
+                                </select>
+
+                                <label for="cpu2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;世代:</label>
+                                <select class="ts-wrapper with-arrow" id="cpu2" name="cpu2" th:field="*{cpu2}" placeholder="CPU世代を入力">
+                                    <option value="" disabled selected>-- CPUとクロック数を入力 --</option>
+                                    <option th:each="name : ${cpu2s}" th:value="${name}" th:text="${name}"></option>
+                                </select>
+                            </div>
+                            
+                            <div class="column right-column">
+                                <p class="spacer"></p><br>
+                                <label for="cpu3">モデル:</label>
+                                <select class="ts-wrapper with-arrow" id="cpu3" name="cpu3" th:field="*{cpu3}" placeholder="CPUモデルを入力">
+                                    <option value="" disabled selected>-- CPUとクロック数を入力 --</option>
+                                    <option th:each="name : ${cpu3s}" th:value="${name}" th:text="${name}"></option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row end-row">
+                            <div class="column left-column">
+                                <label for="memory">搭載メモリ:</label>
+                                <select class="ts-wrapper with-arrow" id="memory" name="memory" th:field="*{memory}" placeholder="搭載メモリを入力">
+                                    <option value="" disabled selected>-- 搭載メモリを入力 --</option>
+                                    <option th:each="name : ${memorys}" th:value="${name.value}" th:text="${name.value}"></option>
+                                </select>
+
+                                <label for="pcTypes">型式:</label>
+                                <select class="ts-wrapper with-arrow" id="pcTypes" name="pcTypes" th:field="*{pcTypes}" placeholder="型式を入力">
+                                    <option value="" disabled selected>-- 型式を入力 --</option>
+                                    <option th:each="name : ${pcTypess}" th:value="${name.value}" th:text="${name.value}"></option>
+                                </select>
+                            </div>
+
+                            <div class="column right-column">
+                                <label for="owned">所有:</label>
+                                <select class="ts-wrapper with-arrow" id="owned" name="owned" th:field="*{owned}" placeholder="所有者を入力">
+                                    <option value="" disabled selected>-- 所有者を入力 --</option>
+                                    <option th:each="name : ${owneds}" th:value="${name.value}" th:text="${name.value}"></option>
+                                </select>
+
+                                <label for="purchaseDate">購入日:</label>
+                                <input type="text" id="purchaseDate" name="purchaseDate" th:field="*{purchaseDate}" placeholder="MM/DD/YYYY" onfocus="(this.type='date')" onblur="if(!this.value) this.type='text'" th:attr="max=${#temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"/> 
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab2" class="notebook-section">
+                        <div class="column left-column">
+                            <p class="title-mid">接続機器情報</p><br>
+                            <label for="monitor">ディスプレイ:</label>
+                            <select class="ts-wrapper with-arrow" id="monitor" name="monitor" th:field="*{monitor}" placeholder="メーカーを入力">
+                                <option value="" disabled selected>-- メーカーを入力 --</option>
+                                <option th:each="name : ${monitors}" th:value="${name.value}" th:text="${name.value}"></option>
+                            </select>
+
+                            <label for="keyboard">キーボード:</label>
+                            <input type="checkbox" id="keyboard" th:field="*{keyboard}" name="keyboard">
+
+                            <label for="mouse">マウス:</label>
+                            <input type="checkbox" id="mouse" th:field="*{mouse}" name="mouse">
+
+                            <label for="other">その他:</label>
+                            <input type="text" id="other" name="other" th:field="*{others}" placeholder="その他を入力"/>
+                        </div>
+
+                        <div class="column right-column">
+                            <p class="title-mid">設置場所</p><br>
+                            <label for="location">支店:</label>
+                            <select class="ts-wrapper with-arrow" id="location" name="location" th:field="*{location}" placeholder="支店を入力">
+                                <option value="" disabled selected>-- 支店を入力 --</option>
+                                <option th:each="name : ${locations}" th:value="${name}" th:text="${name}"></option>
+                            </select>
+
+                            <label for="floor">フロア:</label>
+                            <select class="ts-wrapper with-arrow" id="floor" name="floor" th:field="*{floor}" placeholder="フロアを選択">
+                                <option value="" disabled selected>-- フロアを入力 --</option>
+                                <option th:each="name : ${floors}" th:value="${name}" th:text="${name}"></option>
+                            </select>
+
+                            <label for="rooms">場所:</label>
+                            <select class="ts-wrapper with-arrow" id="rooms" name="rooms" th:field="*{room}" placeholder="場所を入力">
+                                <option value="" disabled selected>-- 場所を入力 --</option>
+                                <option th:each="name : ${rooms}" th:value="${name}" th:text="${name}"></option>
+                            </select>
+
+                            <label for="compUser">使用者(管理者):</label>
+                            <select class="ts-wrapper with-arrow" id="compUser" name="compUser" th:field="*{compUser}" placeholder="使用者を入力">
+                                <option value="" disabled selected>-- 使用者を入力 --</option>
+                                <option th:each="name : ${assigneduser}" th:value="${name.value}" th:text="${name.value}"></option>
+                            </select>
+
+                            <label for="caseNumber">案件:</label>
+                            <select class="ts-wrapper with-arrow" id="caseNumber" name="caseNumber" th:field="*{caseNumber}" placeholder="案件番号を入力">
+                                <option value="" disabled selected>-- 案件番号を入力 --</option>
+                                <option th:each="name : ${projects}" th:value="${name.value}" th:text="${name.value}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="tab3" class="notebook-section">
+                        <div id="column_register">
+                            <label for="remarks" id="remarkslbl">備考/利用経緯:</label>
+                            <textarea id="remarks" placeholder="備考を入力" th:field="*{remarks}" rows="5" cols="50"></textarea>
+                        </div>
+
+                        <div id="column_update" th:if="${action == 'update'}">
+                            <label for="disposalFilter">廃棄/移管(ﾌｨﾙﾀｰ用):</label>
+                            <input type="checkbox" id="disposalFilter" th:field="*{disposalFlag}" name="disposalFilter">
+
+                            <label for="disposal">廃棄/移管:</label>
+                            <input type="text" id="disposal" name="disposal" th:field="*{disposal}" placeholder="廃棄情報を入力">
+
+                            <label for="win10Priority">Win10化要否優先度:</label>
+                            <select class="ts-wrapper with-arrow" id="win10Priority" name="win10Priority" th:field="*{win10Priority}">
+                                <option th:each="opt : ${win10PriorityOptions}" th:value="${opt.value}" th:text="${opt.value}"></option>
+                            </select>
+
+                            <label for="exist2025">2025存在確認:</label>
+                            <input type="checkbox" id="exist2025" name="exist2025" th:field="*{exist2025}">
+
+                            <input type="hidden" id="returnUrl" name="returnUrl" th:value="${returnUrl}" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-block-start:20px;">
+                <button class="footbutton" id="prevTabButton" type="button">前のタブ</button>
+                <button class="footbutton" id="nextTabButton" type="button">次のタブ</button>
+                <button class="footbutton" id="submitButton" type="submit">登録を送信</button>
+                <button class="footbutton" id="cancelButton" type="button">キャンセル</button>
+            </div>
+        </form>
+        <div aria-live="polite" aria-atomic="true" class="position-relative">
+            <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3 mt-5 pt-5">
+                <div th:if="${toastMessage}" 
+                     class="toast align-items-center border-0 shadow-lg" 
+                     role="alert" aria-live="assertive" aria-atomic="true"
+                     th:classappend="${toastType == 'success'} ? ' bg-success text-white' : ' bg-danger text-white'"
+                     th:data-redirect-url="${redirectUrl}">
+                    <div class="d-flex">
+                        <div class="toast-body" th:text="${toastMessage}"></div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" 
+                                data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

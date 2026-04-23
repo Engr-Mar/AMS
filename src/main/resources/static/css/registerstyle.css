@@ -1,0 +1,402 @@
+
+html{
+    block-size: 100%;
+}
+
+body {
+    block-size: 100%;
+    -webkit-font-smoothing: antialiased;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif !important;
+}
+
+main h2 {
+    text-align: start;
+    margin: 20px 0 10px 3%;
+    color: #2e7d32;
+}
+
+main p {
+    font-size: 15px;
+    color: black;
+}
+.title-mid{
+    margin: -25px;
+}
+
+main form {
+    inline-size: 94%;
+    margin: 0 3%;
+    display: flex;
+    flex-direction: column;
+}
+
+.notebook-wrapper {
+    display: flex;
+    inline-size: 100%;
+    block-size: 70vh;
+    flex-shrink: 0;
+}
+
+.notebook-tabs {
+    inline-size: 200px;
+    display: flex;
+    flex-direction: column;
+    margin-inline-end: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.notebook-tabs::after {
+    content: "";
+    flex: 1;
+}
+
+.notebook-tab {
+    padding: 15px 10px;
+    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    background-color: rgb(252, 249, 249);
+    cursor: pointer;
+    text-align: center;
+    color: black;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* .notebook-tab:last-child {
+    border-block-end: 2px solid #2e7d32;
+} */
+
+.notebook-tab.active {
+    background: #198754 !important;
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)) !important;
+    opacity: 10 !important;
+    color: white;
+    text-decoration: underline 2px white;
+    border: 2px solid #2e7d32;
+    inline-size: 200px; 
+    transform: scale(0.97);
+}
+.notebook-tab:hover{
+    background-color: #189e13;
+    color: white;
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)) !important;
+    opacity: 10 !important;
+}
+
+.notebook-content {
+    flex: 1;
+    padding: 20px;
+    background-color: rgb(252, 249, 249);
+    border: 0.5px solid #198754;
+    box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    padding: 16px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Notebook sections */
+.notebook-section {
+    display: none;
+}
+
+.notebook-section.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Submit button */
+.footbutton {
+    display: block;
+    margin: 10px auto 0 auto;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #198754;
+    background-color: white;
+    color: #198754;
+    cursor: pointer;
+    border-radius: 4px;
+    inline-size: 150px;
+    block-size: 40px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.footbutton:hover {
+    background: #198754 !important;
+    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)) !important;
+    opacity: 10 !important;
+    color: white;
+}
+
+@media (max-width: 800px) {
+    .notebook-wrapper {
+        flex-direction: column;
+        block-size: auto;
+    }
+
+    .notebook-tabs {
+        inline-size: 100%;
+        flex-direction: row;
+    }
+
+    .notebook-tab {
+        flex: 1;
+        border: 2px solid #2e7d32;
+        border-block-end: none;
+        padding: 10px 0;
+    }
+
+    .notebook-content {
+        padding: 15px;
+        margin-block-start: 10px;
+    }
+}
+
+#tab1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-block-start: 20px;
+    padding-inline-start: 50px;
+    inline-size: 100%;
+    color:#198754 !important;
+}
+
+#tab2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-block-start: 20px;
+    padding-inline-start: 80px;
+    inline-size: 100%;
+    color:#198754 !important;
+}
+.info-row, .end-row {
+    display: flex;
+    flex-direction: row;
+    padding-block-start: 10px;
+    padding-inline-start: 50px;
+}
+.cpu-row {
+    position: relative;
+    padding-block-start: 10px;
+    padding-inline-start: 50px;
+    padding-block-end: 20px;
+}
+
+.cpu-row::before,
+.cpu-row::after {
+    content: "";
+    position: absolute;
+    inset-inline-start: 100px;          
+    inset-inline-end: 150px;         
+    block-size: 1px;
+    background-color: #2e7d32;
+}
+
+.cpu-row::before {
+    inset-block-start: 0;
+}
+
+.cpu-row::after {
+    inset-block-end: 0;
+}
+
+
+#tab1 .column,
+#tab2 .column {
+    inline-size: 50%;
+    display: grid;
+    grid-template-columns: calc(30% - 5px) calc(70% - 5px);
+    column-gap: 5px;
+    grid-auto-rows: 3.5em;
+    padding: 0 10px;
+    align-items: center;
+    font-size: 16px;
+    padding-block-end: 10px;
+}
+
+#tab1 .column label,
+#tab2 .column label {
+    color: black;
+}
+
+#tab1 .column input[type="text"],
+#tab2 .column input[type="text"],
+select {
+    inline-size: 80%;
+    padding: 6px;
+    border: 1px solid #2e7d32;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+#tab1 .column input[type="date"] {
+    inline-size: 80%;
+    padding: 6px;
+    border: 1px solid #2e7d32;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+#tab2 .column {
+    padding-block-start: 50px;
+}
+#tab2 input[type="checkbox"] {
+    inline-size: 20px;
+    block-size: 20px;
+    accent-color: #2e7d32;
+}
+#memory {
+    inline-size: 50% !important;
+}
+
+@media (max-width: 800px) {
+    #tab1,
+    #tab2 {
+        flex-direction: column;
+    }
+
+    #tab1 .column,
+    #tab2 .column {
+        inline-size: 100%;
+        grid-template-columns: 1fr;
+        padding: 0;
+    }
+}
+@media (max-width: 800px) {
+    .spacer,br {
+        display: none;
+    }
+}
+
+/* Tab3 layout */
+#tab3 {
+    display: flex;
+    flex-direction: column;
+    padding-block-start: 10px;
+    inline-size: 100%;
+}
+
+#column_register,
+#column_update {
+    inline-size: 80%;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    column-gap: 10px;
+    row-gap: 15px;
+    align-items: center;
+    padding: 50px 10px 0 10%;
+    font-size: 16px;
+}
+
+#column_register label,
+#column_update label {
+    color: black;
+}
+
+#column_register input,
+#column_update input[type="text"] {
+    inline-size: 80%;
+    padding: 6px;
+    border: 1px solid #2e7d32;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+#tab3 #remarks {
+    grid-column: 2 / 3;
+    block-size: 200px;
+}
+
+
+#tab3 input[type="checkbox"] {
+    inline-size: 20px;
+    block-size: 20px;
+}
+input,
+select {
+    transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+/* Placeholders */
+input::placeholder,
+select::placeholder,
+input[type="date"]::placeholder {
+    padding-inline-start: 40px;
+    font-size: 16px;
+    opacity: 0.4 !important;
+}
+
+#tab3 #remarks::placeholder {
+    padding-block-start: calc(200px / 2.5);
+    text-align: center;
+    color: black !important;
+    opacity: 0.4;
+}
+
+input[type="text"]::placeholder {
+    color:  black !important;
+    padding-inline-start: 1px !important;
+    opacity: 0.4;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(46,125,50,0.4);
+}
+/* =========================================
+   TOM SELECT - BASE CONTROL 
+========================================= */
+.ts-wrapper.with-arrow .ts-control {
+    inline-size: 80%;
+    border: 1px solid #2e7d32;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: beige ;
+    background: transparent;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ts-wrapper.has-items .ts-control {
+    background-color: #e8f5e9;
+    border: 2px solid #2e7d32 !important; 
+    color: black;
+    font-weight: 520;
+}
+
+.ts-wrapper.has-items .ts-control:hover,
+.ts-wrapper.has-items.focus .ts-control {
+    background-color: #c8e6c9;
+    border-color: #1b5e20;
+    box-shadow: 0 0 6px rgba(27, 94, 32, 0.4);
+}
+
+.ts-wrapper.single.with-arrow .ts-control::after {
+    position: absolute;
+    inset-inline-end: 10px;
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.ts-wrapper.with-arrow .ts-dropdown {
+    border-radius: 8px;
+    border: 1px solid #2e7d32;
+}
+
+.ts-wrapper.with-arrow .ts-dropdown .option {
+    padding: 8px 12px;
+    font-size: 16px;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.ts-wrapper.with-arrow .ts-dropdown .option:hover,
+.ts-wrapper.with-arrow .ts-dropdown .option.selected {
+    background-color: #189e13;
+    color: white;
+}
